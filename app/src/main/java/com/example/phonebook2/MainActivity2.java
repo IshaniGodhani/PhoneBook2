@@ -1,6 +1,7 @@
 package com.example.phonebook2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -16,10 +17,8 @@ import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
     FloatingActionButton fab;
-    Button btnDisplay;
-    EditText etxtName,etxtContact;
     RecyclerView recyclerView;
-    RecyclerAdapter recyclerAdapter;
+    Recycler_Adapter recyclerAdapter;
     ArrayList<User> userList= new ArrayList<User>();
 
     @Override
@@ -27,9 +26,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         fab = findViewById(R.id.fab);
-        etxtName = findViewById(R.id.etxtname);
-        etxtContact = findViewById(R.id.etxtcontact);
-        recyclerView= findViewById(R.id.list_item);
+
 
 
         DBHelper dbHelper = new DBHelper(MainActivity2.this);
@@ -43,8 +40,11 @@ public class MainActivity2 extends AppCompatActivity {
             userList.add(user);
         }
 
-         recyclerAdapter= new RecyclerAdapter(this, userList);
+         recyclerAdapter= new Recycler_Adapter(this, userList);
         recyclerView= findViewById(R.id.list_item);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MainActivity2.this);
+        linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(recyclerAdapter);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

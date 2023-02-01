@@ -6,44 +6,39 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.gms.ads.mediation.Adapter;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.viewHolder> {
+public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View_Holder> {
     Activity activity;
     ArrayList<User> userList;
-    public RecyclerAdapter(Activity activity, ArrayList<User> userList) {
+    public Recycler_Adapter(Activity activity, ArrayList<User> userList) {
         this.activity=activity;
         this.userList=userList;
 
     }
-
     @NonNull
     @Override
-    public RecyclerAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view=LayoutInflater.from(activity).inflate(R.layout.item_category,parent,false);
-       ViewHolder viewHolder=new ViewHolder(view);
-       return viewHolder;
+    public Recycler_Adapter.View_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(activity).inflate(R.layout.item_category,parent,false);
+        View_Holder viewHolder=new View_Holder(view);
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Recycler_Adapter.View_Holder holder, int position) {
         User user=userList.get(position);
         int id=user.getId();
         String name=user.getName();
         String contact=user.getContact();
         holder.txt1.setText(""+name);
         holder.txt2.setText(""+contact);
-
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -87,14 +82,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.viewHo
         return userList.size();
     }
 
-    public class viewHolder extends ViewHolder {
+    public class View_Holder extends RecyclerView.ViewHolder {
         TextView txt1,txt2;
         ImageView menu;
-        public viewHolder(@NonNull View itemView) {
+        public View_Holder(@NonNull View itemView) {
             super(itemView);
-            TextView txt1=itemView.findViewById(R.id.item_name);
-            TextView txt2=itemView.findViewById(R.id.item_contact);
-            ImageView menu=itemView.findViewById(R.id.menu);
+            txt1=itemView.findViewById(R.id.item_name);
+            txt2=itemView.findViewById(R.id.item_contact);
+            menu=itemView.findViewById(R.id.menu);
 
         }
     }
